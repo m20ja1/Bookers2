@@ -7,14 +7,12 @@ class SessionsController < ApplicationController
 
 
   def create
-    if user = User.authenticate_by(params.permit(:name, :password))
-      session_record = start_new_session_for user
+    user = User.find_by(name: params[:name])
 
-      if params[:remember_me] == "1"
-        cookies.permanent.signed[:session_id] = session_record.id
-      end
+      if user && user.authenticate(params[:password])
+        session[:user_id] = user.id
+        redirect_to user_path(user), notice: "ログインしました"
 
-      redirect_to user_path(user), notice: "ログインしました"
     else
       flash.now[:alert] = "Try another name or password."
       render :new, status: :unprocessable_entity
@@ -23,7 +21,7 @@ class SessionsController < ApplicationController
 
 
   def destroy
-    terminate_session
-    redirect_to new_session_path, notice: "ログアウトしました"
+    session[:user_id] = nil
+    redirect_to root_path, notice: "ログアウトしました"
   end
 end

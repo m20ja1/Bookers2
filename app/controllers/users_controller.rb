@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
   allow_unauthenticated_access only: [:new, :create]
+  
+  def index
+    @users = User.all
+    @book = Book.new
+  end
 
   def new
     @user = User.new
@@ -19,6 +24,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @books = @user.books
     @book = Book.new
+  end
+
+  def edit
   end
 
   
