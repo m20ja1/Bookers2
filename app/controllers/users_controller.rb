@@ -5,13 +5,15 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     @book = Book.new
+    @user = Current.user
   end
+
 
   def new
     @user = User.new
   end
 
-  
+
   def create
     @user = User.new(user_params)
     if @user.save
@@ -22,15 +24,18 @@ class UsersController < ApplicationController
     end
   end
 
+
   def show
     @user = User.find(params[:id])
     @books = @user.books
     @book = Book.new
   end
 
+
   def edit
     @user = User.find(params[:id])
   end
+
 
   def update
     @user = User.find(params[:id])
@@ -50,8 +55,8 @@ class UsersController < ApplicationController
 
   def is_matching_login_user
     user = User.find(params[:id])
-    unless user.id == current_user.id
-      redirect_to user_path(current_user.id)
+    unless user.id == Current.user.id
+      redirect_to user_path(Current.user.id)
     end
   end
 

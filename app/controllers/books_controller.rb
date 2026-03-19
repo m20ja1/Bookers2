@@ -14,7 +14,7 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
-    @book.user_id = current_user.id
+    @book.user_id = Current.user.id
     if @book.save
       redirect_to book_path(@book.id), notice: "successfully"
     else
@@ -51,15 +51,15 @@ def book_params
 end
 
 def logged_in_user
-  unless current_user
+  unless Current.user
     flash[:danger] = "ログインしてください"
-    redirect_to new_session_path
+    redirect_to login_path
   end
 end
 
 def is_matching_login_user
     book = Book.find(params[:id])
-    unless book.user.id == current_user.id
+    unless book.user.id == Current.user.id
       redirect_to books_path
     end
 end

@@ -19,9 +19,10 @@
     <%= f.label :remember_me, "Remember me" %>
     </div>
 
-    <%= f.submit "Log in" %>
-<% end %>
-<br>
+    <div class="actions">
+      <%= f.submit "Log in", class: "btn btn-sm btn-primary" %>
+    </div>
 
-<%= link_to 'Sign up', new_user_path %> <br>
-<%= link_to "Forgot password?", new_password_path %>
+<% end %>
+
+<%= link_to 'Sign up', new_user_path, class: "link-offset-0 link-offset-0-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" %><br>

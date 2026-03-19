@@ -1,5 +1,5 @@
 class HomesController < ApplicationController
-  allow_unauthenticated_access only: [:top, :about]
+  allow_unauthenticated_access
 
   def top
   end

@@ -1,3 +1,4 @@
+<div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
 <h2>User info</h2>
 
 <% if @user.errors.any? %>
@@ -11,15 +12,24 @@
   </div>
 <% end %>
 
+
 <%= form_with model: @user, local: true, data: { turbo: false } do |f| %>
-    <label>Name</label>
-    <%= f.text_field :name %>
+    <div class="form-group mb-3">
+      <%= f.label :name, "Name" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
 
-    <label>Image</label>
-    <%= f.file_field :profile_image, accept: "image/*" %>
+    <div class="form-group mb-3">
+      <%= f.label :image, "Image" %><br>
+      <%= f.file_field :profile_image, accept: "image/*" %>
+    </div>
 
-    <label>Introduction</label>
-    <%= f.text_area :introduction %>
-
-    <%= f.submit 'Update User' %>
+    <div class="form-group mb-3">
+      <%= f.label :introduction, "Introduction" %>
+      <%= f.text_area :introduction, class: "form-control" %>
+    </div>
+    
+    <%= f.submit 'Update User', class: "btn btn-secondary" %>
 <% end %>
+
+</div>

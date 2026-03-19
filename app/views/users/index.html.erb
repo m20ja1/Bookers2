@@ -1,21 +1,21 @@
-<div class="container">
+<div class="container px-5 px-sm-0">
 
   <div class="row">
     <div class="col-md-3">
-      <%= render 'users/info', user: current_user, book: @book %>
+      <%= render 'users/info', user: @user, book: @book %>
     </div>
     
     <div class="col-md-8 offset-md-1">
       <h2>Users</h2>
 
 
-  <table class="table">
+  <table class="table border-top">
     <thead>
-      <th>image</th>
+      <tr> <th>image</th>
       <th>name</th>
-      <th></th>
+      <th colspan="3"></th> </tr>
     </thead>
-      <tbody>
+      <tbody class="table-group-divider border-light-subtle">
         <% @users.each do |user| %>
           <tr>
             <td><%= image_tag user.get_profile_image(80,80) %></td>

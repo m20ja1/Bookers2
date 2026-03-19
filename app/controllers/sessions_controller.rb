@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  allow_unauthenticated_access only: %i[ new create ]
+  #skip_before_action :authenticate_user!, only: [:new, :create]
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
 
   def new
@@ -7,11 +7,10 @@ class SessionsController < ApplicationController
 
 
   def create
-    user = User.find_by(name: params[:name])
 
-      if user && user.authenticate(params[:password])
-        session[:user_id] = user.id
-        redirect_to user_path(user), notice: "Signed in successfully."
+      if (user = User.find_by(name: params[:name]))&.authenticate(params[:password])
+         start_new_session_for user
+        redirect_to after_authentication_url, notice: "Signed in successfully."
 
     else
       flash.now[:alert] = "Try another name or password."
